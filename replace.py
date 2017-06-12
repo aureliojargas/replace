@@ -79,6 +79,11 @@ for input_file in args.files:
         modified = original.replace(from_, to_)
 
     if args.in_place:
+
+        # do not save unchanged files
+        if modified == original:
+            continue
+
         f = open(input_file, 'w')
         f.write(modified)
         f.close()
