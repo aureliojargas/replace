@@ -30,15 +30,22 @@ parser = argparse.ArgumentParser(
 )
 
 group = parser.add_mutually_exclusive_group()
-group.add_argument('-f', '--from',      metavar='TEXT', dest='from_')
-group.add_argument('-F', '--from-file', metavar='FILE')
+group.add_argument('-f', '--from',      metavar='TEXT', dest='from_',
+                   help='specify the search text or regex')
+group.add_argument('-F', '--from-file', metavar='FILE',
+                   help='read the search text from this file')
 
 group = parser.add_mutually_exclusive_group()
-group.add_argument('-t', '--to',        metavar='TEXT')
-group.add_argument('-T', '--to-file',   metavar='FILE')
+group.add_argument('-t', '--to',        metavar='TEXT',
+                   help='specify the replacement text')
+group.add_argument('-T', '--to-file',   metavar='FILE',
+                   help='read the replacement text from this file')
 
-parser.add_argument('-r', '--regex', action='store_true')
-parser.add_argument('-i', '--in-place', action='store_true')
+parser.add_argument('-r', '--regex', action='store_true',
+                    help='use regex matching instead of string matching')
+
+parser.add_argument('-i', '--in-place', action='store_true',
+                    help='edit files in-place')
 
 parser.add_argument(
     'files',
