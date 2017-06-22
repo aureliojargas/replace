@@ -2,9 +2,6 @@
 # Aurelio Jargas, 2016-08-13
 #
 # See also https://github.com/dmerejkowsky/replacer/blob/master/bin/replacer
-#
-# TODO:
-# - keep original line break (\n or \r\n)
 
 import sys
 import re
