@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Generic search & replace tool
 # Aurelio Jargas, 2016-08-13
 #
 # See also https://github.com/dmerejkowsky/replacer/blob/master/bin/replacer
@@ -8,6 +9,7 @@ import re
 import string
 import argparse
 
+# XXX Maybe use that instead of reading the file manually?
 # >>> parser = argparse.ArgumentParser()
 # >>> parser.add_argument('infile', nargs='?', type=argparse.FileType('r'),
 # ...                     default=sys.stdin)
@@ -26,24 +28,28 @@ parser = argparse.ArgumentParser(
     # epilog='Ending text.'
 )
 
+# from
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-f', '--from',      metavar='TEXT', dest='from_',
                    help='specify the search text or regex')
 group.add_argument('-F', '--from-file', metavar='FILE',
                    help='read the search text from this file')
 
+# to
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-t', '--to',        metavar='TEXT',
                    help='specify the replacement text')
 group.add_argument('-T', '--to-file',   metavar='FILE',
                    help='read the replacement text from this file')
 
+# other
 parser.add_argument('-r', '--regex', action='store_true',
                     help='use regex matching instead of string matching')
 
 parser.add_argument('-i', '--in-place', action='store_true',
                     help='edit files in-place')
 
+# files
 parser.add_argument(
     'files',
     metavar='FILE',
