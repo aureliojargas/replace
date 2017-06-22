@@ -5,7 +5,6 @@
 #
 # TODO:
 # - keep original line break (\n or \r\n)
-# - do not save unchanged files
 
 import sys
 import re
