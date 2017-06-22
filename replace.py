@@ -22,6 +22,17 @@ import argparse
 # Namespace(infile=<_io.TextIOWrapper name='<stdin>' encoding='UTF-8'>,
 #           outfile=<_io.TextIOWrapper name='<stdout>' encoding='UTF-8'>)
 
+examples = '''examples:
+    # Replace all mentions of old.css with new.css in all HTML files
+    %(prog)s --from old.css --to new.css --in-place *.html
+
+    # Update the AdSense code in all HTML files
+    # The old and the new code are in separate files
+    %(prog)s --from-file adsense.old --to-file adsense.new -i *.html
+
+    # Enclose all numbers inside square brackets: 123 -> [123]
+    %(prog)s --regex --from '(\d+)' --to '[\\1]' file.txt'''
+
 
 def read_file(path):
     with open(path, 'r') as myfile:
@@ -30,7 +41,13 @@ def read_file(path):
 
 def parse_cmdline():
     parser = argparse.ArgumentParser(
-        description='Replaces text using string or regex matching.')
+        description='Replaces text using string or regex matching.',
+        epilog=examples,
+
+        # avoid line wrapping on the epilog text
+        # https://docs.python.org/3/library/argparse.html#formatter-class
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+
     # from
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-f', '--from', metavar='TEXT', dest='from_',
