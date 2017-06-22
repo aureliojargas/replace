@@ -29,10 +29,13 @@ parser = argparse.ArgumentParser(
     # epilog='Ending text.'
 )
 
-parser.add_argument('-F', '--from-file', metavar='FILE')
-parser.add_argument('-f', '--from',      metavar='TEXT', dest='from_')
-parser.add_argument('-T', '--to-file',   metavar='FILE')
-parser.add_argument('-t', '--to',        metavar='TEXT')
+group = parser.add_mutually_exclusive_group()
+group.add_argument('-f', '--from',      metavar='TEXT', dest='from_')
+group.add_argument('-F', '--from-file', metavar='FILE')
+
+group = parser.add_mutually_exclusive_group()
+group.add_argument('-t', '--to',        metavar='TEXT')
+group.add_argument('-T', '--to-file',   metavar='FILE')
 
 parser.add_argument('-r', '--regex', action='store_true')
 parser.add_argument('-i', '--in-place', action='store_true')
