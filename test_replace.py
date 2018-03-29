@@ -2,7 +2,7 @@ import unittest
 import replace
 
 
-class TestReplace(unittest.TestCase):
+class TestMisc(unittest.TestCase):
 
     def test_examples_in_docstring(self):
         # Those examples are inserted in the --help message
@@ -29,6 +29,29 @@ class TestConfigValidation(unittest.TestCase):
         replace.validate_config(self.config)
         self.assertEqual('f', self.config.from_value)
         self.assertEqual('t', self.config.to_value)
+
+
+class TestReplace(unittest.TestCase):
+
+    def setUp(self):
+        self.tmpfile = 'foo'
+        replace.save_file(self.tmpfile, 'abcabc')
+
+    def tearDown(self):
+        import os
+        os.remove(self.tmpfile)
+
+    def test_replace_string(self):
+        cmdline = '-f a -t @ -i'.split(' ') + [self.tmpfile]
+        replace.main(cmdline)
+        result = replace.read_file(self.tmpfile)
+        self.assertEqual('@bc@bc', result)
+
+    def test_replace_regex(self):
+        cmdline = '-f [a] -t @ -r -i'.split(' ') + [self.tmpfile]
+        replace.main(cmdline)
+        result = replace.read_file(self.tmpfile)
+        self.assertEqual('@bc@bc', result)
 
 
 if __name__ == '__main__':
