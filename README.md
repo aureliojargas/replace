@@ -79,8 +79,7 @@ $
 Command line options missing or incomplete:
 
 ```console
-$ ./replace.py 2>&1 | cut -c1-77
-usage: replace.py [-h] [-f TEXT | -F FILE] [-t TEXT | -T FILE] [-r] [-i] FILE
+$ ./replace.py 2>&1 | grep error
 replace.py: error: the following arguments are required: FILE
 $ ./replace.py README.md
 Error: No search pattern (use --from or --from-file)
