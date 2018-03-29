@@ -126,7 +126,7 @@ def main(args=None):
             save_file(input_file, modified)
             print('Saved %s' % input_file)
         else:
-            print(modified)
+            print(modified, end='')
 
 
 if __name__ == '__main__':
