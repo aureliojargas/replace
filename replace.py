@@ -109,6 +109,6 @@ for input_file in args.files:
         f = open(input_file, 'w')
         f.write(modified)
         f.close()
-        print("Saved %s" % input_file)
+        print('Saved %s' % input_file)
     else:
         print(modified)
