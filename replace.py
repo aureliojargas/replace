@@ -42,7 +42,7 @@ def read_file(path):
         return myfile.read()
 
 
-def parse_cmdline():
+def setup_cmdline_parser():
     parser = argparse.ArgumentParser(
         description='Replaces text using string or regex matching.',
         epilog=__doc__,  # module docstring
@@ -72,11 +72,13 @@ def parse_cmdline():
     # files
     parser.add_argument('files', metavar='FILE', nargs='+',
                         help='input files')
-    return parser.parse_args()
+    return parser
+
 
 def main():
     global config
-    config = parse_cmdline()
+    parser = setup_cmdline_parser()
+    config = parser.parse_args()
 
     # Set search pattern
     if config.from_file:
@@ -116,6 +118,7 @@ def main():
             print('Saved %s' % input_file)
         else:
             print(modified)
+
 
 if __name__ == '__main__':
     main()
