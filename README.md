@@ -53,3 +53,39 @@ find . -type f -name "*.html" \
       -t 'https://example.com' \
       -i {} \;
 ```
+
+## Tests
+
+The following command lines are executed and verified by [clitest](https://github.com/aureliojargas/clitest), using the `clitest README.md` command.
+
+```console
+$ echo 'the quick brown fox' > file.txt
+$ cat file.txt
+the quick brown fox
+$ ./replace.py --from 'brown' --to 'red' file.txt
+the quick red fox
+$ ./replace.py -f 'brown' -t 'red' file.txt
+the quick red fox
+$ ./replace.py -f 'o' -t '◆' file.txt
+the quick br◆wn f◆x
+$ ./replace.py --regex -f '[aeiou]' -t '◆' file.txt
+th◆ q◆◆ck br◆wn f◆x
+$ ./replace.py -r -f '[aeiou]' -t '◆' file.txt
+th◆ q◆◆ck br◆wn f◆x
+$
+```
+
+Command line options missing or incomplete:
+
+```console
+$ ./replace.py
+usage: replace.py [-h] [-f TEXT | -F FILE] [-t TEXT | -T FILE] [-r] [-i] FILE [FILE ...]
+replace.py: error: the following arguments are required: FILE
+$ ./replace.py README.md
+Error: No search pattern (use --from or --from-file)
+$ ./replace.py -f '' README.md
+Error: No search pattern (use --from or --from-file)
+$ ./replace.py -f foo README.md
+Error: No replace pattern (use --to or --to-file)
+$
+```
