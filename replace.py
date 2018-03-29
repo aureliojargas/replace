@@ -6,7 +6,6 @@
 
 import sys
 import re
-import string
 import argparse
 
 # XXX Maybe use that instead of reading the file manually?
