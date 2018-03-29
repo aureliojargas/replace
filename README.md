@@ -58,27 +58,56 @@ find . -type f -name "*.html" \
 
 The following command lines are executed and verified by [clitest](https://github.com/aureliojargas/clitest), using the `clitest README.md` command.
 
+First, setup a sample text file:
+
 ```console
 $ echo 'the quick brown fox' > file.txt
 $ cat file.txt
 the quick brown fox
+$
+```
+
+Now we'll do some replaces using string matching, which is the default. Note that there are short and long options (`-f`/`--from`) and that the replacement is performed globally: all occurrences are replaced.
+
+```console
 $ ./replace.py --from 'brown' --to 'red' file.txt
 the quick red fox
 $ ./replace.py -f 'brown' -t 'red' file.txt
 the quick red fox
 $ ./replace.py -f 'o' -t '◆' file.txt
 the quick br◆wn f◆x
+$
+```
+
+For more powerfull searches, use `-r` or `--regex` to perform a regular expression match. You have access to the full power of Python's regex flavor.
+
+```console
 $ ./replace.py --regex -f '[aeiou]' -t '◆' file.txt
 th◆ q◆◆ck br◆wn f◆x
 $ ./replace.py -r -f '[aeiou]' -t '◆' file.txt
 th◆ q◆◆ck br◆wn f◆x
-$ cat file.txt | ./replace.py -r -f '[aeiou]' -t '◆' -
-th◆ q◆◆ck br◆wn f◆x
-$ rm file.txt
 $
 ```
 
-Command line options missing or incomplete:
+If necessary, you can also apply the replacements on text coming from STDIN, using `-` as the file name.
+
+```console
+$ cat file.txt | ./replace.py -r -f '[aeiou]' -t '◆' -
+th◆ q◆◆ck br◆wn f◆x
+$
+```
+
+Note that all the previous replaces were not saved to the original file. This is the default behavior (just like `sed`). If you want to edit the original file, use the `-i` or `--in-place` options:
+
+```console
+$ ./replace.py -r -f '[aeiou]' -t '◆' -i file.txt
+Saved file.txt
+$ cat file.txt
+th◆ q◆◆ck br◆wn f◆x
+$
+```
+
+Some boring tests for missing or incomplete command line options:
 
 ```console
 $ ./replace.py 2>&1 | grep error
@@ -89,5 +118,12 @@ $ ./replace.py -f '' README.md
 Error: No search pattern (use --from or --from-file)
 $ ./replace.py -f foo README.md
 Error: No replace pattern (use --to or --to-file)
+$
+```
+
+OK, we're done for now.
+
+```console
+$ rm file.txt
 $
 ```
