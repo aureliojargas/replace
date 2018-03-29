@@ -47,7 +47,7 @@ replace --from-file adsense.old --to-file adsense.new -i *.html
 replace --regex --from '(\d+)' --to '[\\1]' file.txt
 
 # From http to https in all HTML files, recursive
-$ find . -type f -name "*.html" \
+find . -type f -name "*.html" \
     -exec replace \
       -f 'http://example.com' \
       -t 'https://example.com' \
