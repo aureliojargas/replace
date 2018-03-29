@@ -34,8 +34,6 @@ import argparse
 # Namespace(infile=<_io.TextIOWrapper name='<stdin>' encoding='UTF-8'>,
 #           outfile=<_io.TextIOWrapper name='<stdout>' encoding='UTF-8'>)
 
-config = None
-
 
 def read_file(path):
     with open(path, 'r') as myfile:
@@ -82,7 +80,6 @@ def setup_cmdline_parser():
 
 
 def main():
-    global config
     parser = setup_cmdline_parser()
     config = parser.parse_args()
 
