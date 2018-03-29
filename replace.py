@@ -42,6 +42,12 @@ def read_file(path):
         return myfile.read()
 
 
+def save_file(path, content):
+    file = open(path, 'w')
+    file.write(content)
+    file.close()
+
+
 def setup_cmdline_parser():
     parser = argparse.ArgumentParser(
         description='Replaces text using string or regex matching.',
@@ -112,9 +118,7 @@ def main():
             if modified == original:
                 continue
 
-            fd = open(input_file, 'w')
-            fd.write(modified)
-            fd.close()
+            save_file(input_file, modified)
             print('Saved %s' % input_file)
         else:
             print(modified)
