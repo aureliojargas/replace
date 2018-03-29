@@ -73,36 +73,36 @@ def parse_cmdline():
     return parser.parse_args()
 
 
-args = parse_cmdline()
+config = parse_cmdline()
 # print(args); sys.exit(0) # debug
 
 # Set search pattern
-if args.from_file:
-    from_ = read_file(args.from_file)
-elif args.from_:
-    from_ = args.from_
+if config.from_file:
+    from_ = read_file(config.from_file)
+elif config.from_:
+    from_ = config.from_
 else:
     print('Error: No search pattern (use --from or --from-file)')
     sys.exit(1)
 
 # Set replacement
-if args.to_file:
-    to_ = read_file(args.to_file)
-elif args.to is not None:  # could also be ''
-    to_ = args.to
+if config.to_file:
+    to_ = read_file(config.to_file)
+elif config.to is not None:  # could also be ''
+    to_ = config.to
 else:
     print('Error: No replace pattern (use --to or --to-file)')
     sys.exit(1)
 
-for input_file in args.files:
+for input_file in config.files:
     original = read_file(input_file)
 
-    if args.regex:
+    if config.regex:
         modified = re.sub(from_, to_, original)
     else:
         modified = original.replace(from_, to_)
 
-    if args.in_place:
+    if config.in_place:
 
         # do not save unchanged files
         if modified == original:
