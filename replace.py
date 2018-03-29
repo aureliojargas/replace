@@ -112,9 +112,9 @@ def main():
             if modified == original:
                 continue
 
-            f = open(input_file, 'w')
-            f.write(modified)
-            f.close()
+            fd = open(input_file, 'w')
+            fd.write(modified)
+            fd.close()
             print('Saved %s' % input_file)
         else:
             print(modified)
