@@ -72,6 +72,8 @@ $ ./replace.py --regex -f '[aeiou]' -t '◆' file.txt
 th◆ q◆◆ck br◆wn f◆x
 $ ./replace.py -r -f '[aeiou]' -t '◆' file.txt
 th◆ q◆◆ck br◆wn f◆x
+$ cat file.txt | ./replace.py -r -f '[aeiou]' -t '◆' -
+th◆ q◆◆ck br◆wn f◆x
 $ rm file.txt
 $
 ```
