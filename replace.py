@@ -79,28 +79,33 @@ def setup_cmdline_parser():
     return parser
 
 
-def main():
-    parser = setup_cmdline_parser()
-    config = parser.parse_args()
-
+def validate_config(config):
     # Set search pattern
     if config.from_file:
-        from_ = read_file(config.from_file)
+        config.from_value = read_file(config.from_file)
     elif config.from_:
-        from_ = config.from_
+        config.from_value = config.from_
     else:
         print('Error: No search pattern (use --from or --from-file)')
         sys.exit(1)
 
     # Set replacement
     if config.to_file:
-        to_ = read_file(config.to_file)
+        config.to_value = read_file(config.to_file)
     elif config.to is not None:  # could also be ''
-        to_ = config.to
+        config.to_value = config.to
     else:
         print('Error: No replace pattern (use --to or --to-file)')
         sys.exit(1)
 
+
+def main():
+    parser = setup_cmdline_parser()
+    config = parser.parse_args()
+    validate_config(config)
+
+    from_ = config.from_value
+    to_ = config.to_value
     for input_file in config.files:
         original = read_file(input_file)
 
