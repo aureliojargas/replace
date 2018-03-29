@@ -34,6 +34,8 @@ import argparse
 # Namespace(infile=<_io.TextIOWrapper name='<stdin>' encoding='UTF-8'>,
 #           outfile=<_io.TextIOWrapper name='<stdout>' encoding='UTF-8'>)
 
+config = None
+
 
 def read_file(path):
     with open(path, 'r') as myfile:
@@ -72,45 +74,48 @@ def parse_cmdline():
                         help='input files')
     return parser.parse_args()
 
+def main():
+    global config
+    config = parse_cmdline()
 
-config = parse_cmdline()
-# print(args); sys.exit(0) # debug
-
-# Set search pattern
-if config.from_file:
-    from_ = read_file(config.from_file)
-elif config.from_:
-    from_ = config.from_
-else:
-    print('Error: No search pattern (use --from or --from-file)')
-    sys.exit(1)
-
-# Set replacement
-if config.to_file:
-    to_ = read_file(config.to_file)
-elif config.to is not None:  # could also be ''
-    to_ = config.to
-else:
-    print('Error: No replace pattern (use --to or --to-file)')
-    sys.exit(1)
-
-for input_file in config.files:
-    original = read_file(input_file)
-
-    if config.regex:
-        modified = re.sub(from_, to_, original)
+    # Set search pattern
+    if config.from_file:
+        from_ = read_file(config.from_file)
+    elif config.from_:
+        from_ = config.from_
     else:
-        modified = original.replace(from_, to_)
+        print('Error: No search pattern (use --from or --from-file)')
+        sys.exit(1)
 
-    if config.in_place:
-
-        # do not save unchanged files
-        if modified == original:
-            continue
-
-        f = open(input_file, 'w')
-        f.write(modified)
-        f.close()
-        print('Saved %s' % input_file)
+    # Set replacement
+    if config.to_file:
+        to_ = read_file(config.to_file)
+    elif config.to is not None:  # could also be ''
+        to_ = config.to
     else:
-        print(modified)
+        print('Error: No replace pattern (use --to or --to-file)')
+        sys.exit(1)
+
+    for input_file in config.files:
+        original = read_file(input_file)
+
+        if config.regex:
+            modified = re.sub(from_, to_, original)
+        else:
+            modified = original.replace(from_, to_)
+
+        if config.in_place:
+
+            # do not save unchanged files
+            if modified == original:
+                continue
+
+            f = open(input_file, 'w')
+            f.write(modified)
+            f.close()
+            print('Saved %s' % input_file)
+        else:
+            print(modified)
+
+if __name__ == '__main__':
+    main()
