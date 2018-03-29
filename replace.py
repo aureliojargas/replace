@@ -99,9 +99,12 @@ def validate_config(config):
         sys.exit(1)
 
 
-def main():
+def main(args=None):
+    if args is None:
+        args = sys.argv
+
     parser = setup_cmdline_parser()
-    config = parser.parse_args()
+    config = parser.parse_args(args)
     validate_config(config)
 
     from_ = config.from_value
