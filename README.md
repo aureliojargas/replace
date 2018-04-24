@@ -127,3 +127,8 @@ OK, we're done for now.
 $ rm file.txt
 $
 ```
+
+## Similar tools
+
+- https://github.com/dmerejkowsky/replacer/
+- https://github.com/facebook/codemod
