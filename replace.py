@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # Generic search & replace tool
 # Aurelio Jargas, 2016-08-13
-#
-# See also https://github.com/dmerejkowsky/replacer/blob/master/bin/replacer
 
 """
 Examples:
