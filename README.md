@@ -11,7 +11,7 @@ Specify the FROM/TO patterns directly in the command line:
 -t, --to TEXT           specify the replacement text
 ```
 
-Specify the FROM/TO patterns using files:
+Specify the FROM/TO patterns using files, useful for multiline matches:
 
 ```
 -F, --from-file FILE    read the search text from this file
