@@ -1,0 +1,2 @@
+-v to show when a file is NOT changed
+Change files by default, implement dry-run otherwise
