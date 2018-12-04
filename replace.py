@@ -36,7 +36,8 @@ import argparse
 def read_file(path):
     if path == '-':
         return sys.stdin.read()
-    with open(path, 'r') as myfile:
+    # The newline argument preserves the original line break (see issue #2)
+    with open(path, 'r', newline='') as myfile:
         return myfile.read()
 
 
