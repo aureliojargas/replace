@@ -74,6 +74,8 @@ def setup_cmdline_parser():
 
     parser.add_argument('-i', '--in-place', action='store_true',
                         help='edit files in-place')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='turn on verbose mode')
     # files
     parser.add_argument('files', metavar='FILE', nargs='+',
                         help='input files')
@@ -110,7 +112,12 @@ def main(args=None):
 
     from_ = config.from_value
     to_ = config.to_value
+
     for input_file in config.files:
+
+        if config.verbose:
+            print('----', input_file)
+
         original = read_file(input_file)
 
         if config.regex:
