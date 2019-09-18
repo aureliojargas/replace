@@ -79,8 +79,7 @@ def validate_config(config):
     elif config.from_:
         config.from_value = config.from_
     else:
-        print('Error: No search pattern (use --from or --from-file)')
-        sys.exit(1)
+        sys.exit('Error: No search pattern (use --from or --from-file)')
 
     # Set replacement
     if config.to_file:
@@ -88,8 +87,7 @@ def validate_config(config):
     elif config.to is not None:  # could also be ''
         config.to_value = config.to
     else:
-        print('Error: No replace pattern (use --to or --to-file)')
-        sys.exit(1)
+        sys.exit('Error: No replace pattern (use --to or --to-file)')
 
 
 def main(args=None):
