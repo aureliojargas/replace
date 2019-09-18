@@ -17,9 +17,9 @@ Examples:
   replace --regex --from '(\\d+)' --to '[\\1]' file.txt
 '''
 
-import sys
-import re
 import argparse
+import re
+import sys
 
 # XXX Maybe use that instead of reading the file manually?
 # >>> parser = argparse.ArgumentParser()
@@ -42,12 +42,10 @@ def read_file(path):
     with open(path, 'r', newline='') as myfile:
         return myfile.read()
 
-
 def save_file(path, content):
     file = open(path, 'w')
     file.write(content)
     file.close()
-
 
 def setup_cmdline_parser():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -71,7 +69,6 @@ def setup_cmdline_parser():
     parser.add_argument('files', metavar='FILE', nargs='+', help='input files')
     return parser
 
-
 def validate_config(config):
     # Set search pattern
     if config.from_file:
@@ -89,7 +86,6 @@ def validate_config(config):
     else:
         sys.exit('Error: No replace pattern (use --to or --to-file)')
 
-
 def main(args=None):
     parser = setup_cmdline_parser()
     config = parser.parse_args(args)
@@ -105,22 +101,20 @@ def main(args=None):
 
         original = read_file(input_file)
 
+        # do the replace
         if config.regex:
             modified = re.sub(from_, to_, original)
         else:
             modified = original.replace(from_, to_)
 
+        # save or show results
         if config.in_place:
-
-            # do not save unchanged files
             if modified == original:
-                continue
-
+                continue  # do not save unchanged files
             save_file(input_file, modified)
             print('Saved %s' % input_file)
         else:
             print(modified, end='')
-
 
 if __name__ == '__main__':
     main()
