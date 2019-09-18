@@ -2,18 +2,20 @@
 # Generic search & replace tool
 # Aurelio Jargas, 2016-08-13
 
-"""
+'''
+Replaces text using string or regex matching.
+
 Examples:
-    # Replace all mentions of old.css with new.css in all HTML files
-    replace --from old.css --to new.css --in-place *.html
+  # Replace all mentions of old.css with new.css in all HTML files
+  replace --from old.css --to new.css --in-place *.html
 
-    # Update the AdSense code in all HTML files
-    # The old and the new code are in separate files
-    replace --from-file adsense.old --to-file adsense.new -i *.html
+  # Update the AdSense code in all HTML files
+  # The old and the new code are in separate files
+  replace --from-file adsense.old --to-file adsense.new -i *.html
 
-    # Enclose all numbers inside square brackets: 123 -> [123]
-    replace --regex --from '(\\d+)' --to '[\\1]' file.txt
-"""
+  # Enclose all numbers inside square brackets: 123 -> [123]
+  replace --regex --from '(\\d+)' --to '[\\1]' file.txt
+'''
 
 import sys
 import re
@@ -48,37 +50,25 @@ def save_file(path, content):
 
 
 def setup_cmdline_parser():
-    parser = argparse.ArgumentParser(
-        description='Replaces text using string or regex matching.',
-        epilog=__doc__,  # module docstring
-
-        # avoid line wrapping on the epilog text
-        # https://docs.python.org/3/library/argparse.html#formatter-class
-        formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 
     # from
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-f', '--from', metavar='TEXT', dest='from_',
-                       help='specify the search text or regex')
-    group.add_argument('-F', '--from-file', metavar='FILE',
-                       help='read the search text from this file')
+    group.add_argument('-f', '--from', metavar='TEXT', dest='from_', help='specify the search text or regex')
+    group.add_argument('-F', '--from-file', metavar='FILE', help='read the search text from this file')
+
     # to
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-t', '--to', metavar='TEXT',
-                       help='specify the replacement text')
-    group.add_argument('-T', '--to-file', metavar='FILE',
-                       help='read the replacement text from this file')
-    # other
-    parser.add_argument('-r', '--regex', action='store_true',
-                        help='use regex matching instead of string matching')
+    group.add_argument('-t', '--to', metavar='TEXT', help='specify the replacement text')
+    group.add_argument('-T', '--to-file', metavar='FILE', help='read the replacement text from this file')
 
-    parser.add_argument('-i', '--in-place', action='store_true',
-                        help='edit files in-place')
-    parser.add_argument('-v', '--verbose', action='store_true',
-                        help='turn on verbose mode')
+    # other
+    parser.add_argument('-r', '--regex', action='store_true', help='use regex matching instead of string matching')
+    parser.add_argument('-i', '--in-place', action='store_true', help='edit files in-place')
+    parser.add_argument('-v', '--verbose', action='store_true', help='turn on verbose mode')
+
     # files
-    parser.add_argument('files', metavar='FILE', nargs='+',
-                        help='input files')
+    parser.add_argument('files', metavar='FILE', nargs='+', help='input files')
     return parser
 
 
