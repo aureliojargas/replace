@@ -103,9 +103,6 @@ def validate_config(config):
 
 
 def main(args=None):
-    if args is None:
-        args = sys.argv[1:]
-
     parser = setup_cmdline_parser()
     config = parser.parse_args(args)
     validate_config(config)
