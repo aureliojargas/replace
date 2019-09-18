@@ -21,20 +21,6 @@ import argparse
 import re
 import sys
 
-# XXX Maybe use that instead of reading the file manually?
-# >>> parser = argparse.ArgumentParser()
-# >>> parser.add_argument('infile', nargs='?', type=argparse.FileType('r'),
-# ...                     default=sys.stdin)
-# >>> parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
-# ...                     default=sys.stdout)
-# >>> parser.parse_args(['input.txt', 'output.txt'])
-# Namespace(infile=<_io.TextIOWrapper name='input.txt' encoding='UTF-8'>,
-#           outfile=<_io.TextIOWrapper name='output.txt' encoding='UTF-8'>)
-# >>> parser.parse_args([])
-# Namespace(infile=<_io.TextIOWrapper name='<stdin>' encoding='UTF-8'>,
-#           outfile=<_io.TextIOWrapper name='<stdout>' encoding='UTF-8'>)
-
-
 def read_file(path):
     if path == '-':
         return sys.stdin.read()
