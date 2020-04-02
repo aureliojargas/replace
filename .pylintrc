@@ -7,7 +7,7 @@ disable=missing-docstring
 # Wide screen monitors are nice
 
 [FORMAT]
-max-line-length=120
+max-line-length=80
 
 # No reports, please
 
