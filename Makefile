@@ -9,8 +9,11 @@ check: black clitest pylint
 	bash ./clitest --progress none README.md
 
 black pylint:
-	@command -v $@ >/dev/null 2>&1 && exit 0; \
-	pip3 install --user $@ || pip install --user $@
+	@command -v $@ >/dev/null || \
+	pip3 install --user $@ || \
+	pip3 install $@ || \
+	pip install --user $@ || \
+	pip install $@
 
 clitest:
 	curl --location --remote-name --silent \
