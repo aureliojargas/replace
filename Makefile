@@ -1,13 +1,14 @@
-.PHONY: check clean pylint
+.PHONY: black check clean pylint
 
 clean:
 	rm -f clitest
 
-check: clitest pylint
+check: black clitest pylint
+	black --check --diff --quiet replace.py
 	pylint replace.py
 	bash ./clitest --progress none README.md
 
-pylint:
+black pylint:
 	@command -v $@ >/dev/null 2>&1 && exit 0; \
 	pip3 install --user $@ || pip install --user $@
 

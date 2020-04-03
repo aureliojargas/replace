@@ -2,7 +2,7 @@
 # Generic search & replace tool
 # Aurelio Jargas, 2016-08-13
 
-'''
+"""
 Replaces text using string or regex matching.
 
 Examples:
@@ -15,45 +15,75 @@ Examples:
 
   # Enclose all numbers inside square brackets: 123 -> [123]
   replace --regex --from '(\\d+)' --to '[\\1]' file.txt
-'''
+"""
 
 import argparse
 import re
 import sys
 
+
 def read_file(path):
-    if path == '-':
+    if path == "-":
         return sys.stdin.read()
     # The newline argument preserves the original line break (see issue #2)
-    with open(path, 'r', newline='') as myfile:
+    with open(path, "r", newline="") as myfile:
         return myfile.read()
 
+
 def save_file(path, content):
-    file = open(path, 'w')
+    file = open(path, "w")
     file.write(content)
     file.close()
 
+
 def setup_cmdline_parser():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
 
     # from
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-f', '--from', metavar='TEXT', dest='from_', help='specify the search text or regex')
-    group.add_argument('-F', '--from-file', metavar='FILE', help='read the search text from this file')
+    group.add_argument(
+        "-f",
+        "--from",
+        metavar="TEXT",
+        dest="from_",
+        help="specify the search text or regex",
+    )
+    group.add_argument(
+        "-F", "--from-file", metavar="FILE", help="read the search text from this file"
+    )
 
     # to
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-t', '--to', metavar='TEXT', help='specify the replacement text')
-    group.add_argument('-T', '--to-file', metavar='FILE', help='read the replacement text from this file')
+    group.add_argument(
+        "-t", "--to", metavar="TEXT", help="specify the replacement text"
+    )
+    group.add_argument(
+        "-T",
+        "--to-file",
+        metavar="FILE",
+        help="read the replacement text from this file",
+    )
 
     # other
-    parser.add_argument('-r', '--regex', action='store_true', help='use regex matching instead of string matching')
-    parser.add_argument('-i', '--in-place', action='store_true', help='edit files in-place')
-    parser.add_argument('-v', '--verbose', action='store_true', help='turn on verbose mode')
+    parser.add_argument(
+        "-r",
+        "--regex",
+        action="store_true",
+        help="use regex matching instead of string matching",
+    )
+    parser.add_argument(
+        "-i", "--in-place", action="store_true", help="edit files in-place"
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="turn on verbose mode"
+    )
 
     # files
-    parser.add_argument('files', metavar='FILE', nargs='+', help='input files')
+    parser.add_argument("files", metavar="FILE", nargs="+", help="input files")
     return parser
+
 
 def validate_config(config):
     # Set search pattern
@@ -62,7 +92,7 @@ def validate_config(config):
     elif config.from_:
         config.from_value = config.from_
     else:
-        sys.exit('Error: No search pattern (use --from or --from-file)')
+        sys.exit("Error: No search pattern (use --from or --from-file)")
 
     # Set replacement
     if config.to_file:
@@ -70,7 +100,8 @@ def validate_config(config):
     elif config.to is not None:  # could also be ''
         config.to_value = config.to
     else:
-        sys.exit('Error: No replace pattern (use --to or --to-file)')
+        sys.exit("Error: No replace pattern (use --to or --to-file)")
+
 
 def main(args=None):
     parser = setup_cmdline_parser()
@@ -83,7 +114,7 @@ def main(args=None):
     for input_file in config.files:
 
         if config.verbose:
-            print('----', input_file)
+            print("----", input_file)
 
         original = read_file(input_file)
 
@@ -98,9 +129,10 @@ def main(args=None):
             if modified == original:
                 continue  # do not save unchanged files
             save_file(input_file, modified)
-            print('Saved %s' % input_file)
+            print("Saved %s" % input_file)
         else:
-            print(modified, end='')
+            print(modified, end="")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
