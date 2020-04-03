@@ -1,7 +1,4 @@
 language: python
 python:
   - "3.6"
-install:
-  - pip install -q pylint
-script:
-  - ./ci.sh
+script: make check
