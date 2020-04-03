@@ -1,8 +1,5 @@
 .PHONY: black check clean pylint
 
-clean:
-	rm -f clitest
-
 check: black clitest pylint
 	black --check --diff --quiet replace.py
 	pylint replace.py
@@ -18,3 +15,6 @@ black pylint:
 clitest:
 	curl --location --remote-name --silent \
 	https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+
+clean:
+	rm -f clitest
