@@ -1,0 +1,32 @@
+# Run black and pylint in GitHub Actions
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+name: Lint
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # https://github.com/github/super-linter
+      - name: Lint
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_PYTHON_PYLINT: true
+
+          LINTER_RULES_PATH: /
+          PYTHON_PYLINT_CONFIG_FILE: .pylintrc
+
+          # Mark the status of each individual linter run in the Checks tab
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

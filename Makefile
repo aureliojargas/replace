@@ -1,8 +1,12 @@
 .PHONY: check clean
 
-check: clitest
+check: lint test
+
+lint:
 	black --check --diff --quiet replace.py
 	pylint replace.py
+
+test: clitest
 	bash ./clitest --progress none README.md
 
 clitest:
