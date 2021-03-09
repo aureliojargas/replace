@@ -1,0 +1,27 @@
+# This runs the GitHub Super Linter tool
+# https://github.com/github/super-linter
+#
+# This is slow: 2 minutes to run, against 22s when doing "by hand"
+# This is clunky: shell script and env variables hell
+
+name: Super Linter
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: github/super-linter@v3
+        env:
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_PYTHON_PYLINT: true
+
+          LINTER_RULES_PATH: /
+          PYTHON_PYLINT_CONFIG_FILE: .pylintrc
+
+          # Mark the status of each individual linter run in the Checks tab
+          # (apparently it did not work)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
