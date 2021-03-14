@@ -1,6 +1,9 @@
-.PHONY: check clean lint test
+.PHONY: check clean fmt lint test
 
 check: lint test
+
+fmt:
+	black replace.py
 
 lint:
 	black --check --diff --quiet replace.py
