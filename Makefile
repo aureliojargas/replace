@@ -1,4 +1,4 @@
-.PHONY: check clean fmt lint test
+.PHONY: check doctester fmt lint test
 
 check: lint test
 
@@ -9,12 +9,9 @@ lint:
 	black --check --diff --quiet replace.py
 	pylint replace.py
 
-test: clitest
-	bash ./clitest --progress none README.md
+test: doctester
+	doctester --prefix '' README.md
 
-clitest:
-	curl --location --remote-name --silent \
-	https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
-
-clean:
-	rm -f clitest
+doctester:
+	@command -v doctester >/dev/null || \
+	python3 -m pip install doctester
