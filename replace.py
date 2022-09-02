@@ -26,14 +26,13 @@ def read_file(path):
     if path == "-":
         return sys.stdin.read()
     # The newline argument preserves the original line break (see issue #2)
-    with open(path, "r", newline="") as myfile:
+    with open(path, "r", newline="", encoding="utf-8") as myfile:
         return myfile.read()
 
 
 def save_file(path, content):
-    file = open(path, "w")
-    file.write(content)
-    file.close()
+    with open(path, "w", encoding="utf-8") as myfile:
+        myfile.write(content)
 
 
 def setup_cmdline_parser():
@@ -129,7 +128,7 @@ def main(args=None):
             if modified == original:
                 continue  # do not save unchanged files
             save_file(input_file, modified)
-            print("Saved %s" % input_file)
+            print("Saved", input_file)
         else:
             print(modified, end="")
 
