@@ -7,7 +7,7 @@ fmt:
 
 lint:
 	black --check --diff --quiet replace.py
-	pylint replace.py
+	ruff replace.py
 
 test: clitest
 	bash ./clitest --progress none README.md

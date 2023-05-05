@@ -1,0 +1,13 @@
+[tool.ruff]
+target-version = "py37"
+fix = false
+select = ["ALL"]
+ignore = [
+    # Ignored check groups
+    "D",       # pydocstyle
+    "ANN",     # flake8-annotations
+    "COM",     # flake8-commas (black takes care of them)
+    "PTH",     # flake8-use-pathlib (see issue #2)
+    # Individually ignored checks
+    "T201",    # `print` found
+]
