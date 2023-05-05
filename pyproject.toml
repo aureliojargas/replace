@@ -11,3 +11,6 @@ ignore = [
     # Individually ignored checks
     "T201",    # `print` found
 ]
+
+[tool.ruff.per-file-ignores]
+"test_replace.py" = ["S101"]  # Use of `assert` detected

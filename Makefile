@@ -1,15 +1,19 @@
 .PHONY: check clean fmt lint test
 
+PYTHON_FILES = replace.py test_replace.py
+
 check: lint test
 
 fmt:
-	black replace.py
+	ruff --fix --select I $(PYTHON_FILES)
+	black $(PYTHON_FILES)
 
 lint:
-	black --check --diff --quiet replace.py
-	ruff replace.py
+	ruff $(PYTHON_FILES)
+	black --check --diff --quiet $(PYTHON_FILES)
 
 test: clitest
+	pytest
 	bash ./clitest --progress none README.md
 
 clitest:
