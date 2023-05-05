@@ -129,7 +129,6 @@ def main(args=None):
     to_ = config.to_value
 
     for input_file in config.files:
-
         if config.verbose:
             print("----", input_file)
 
