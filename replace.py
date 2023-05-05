@@ -18,21 +18,20 @@ Examples:
 """
 
 import argparse
+import pathlib
 import re
 import sys
 
 
+# read/write files using bytes to avoid line break issues
 def read_file(path):
     if path == "-":
         return sys.stdin.read()
-    # The newline argument preserves the original line break (see issue #2)
-    with open(path, newline="", encoding="utf-8") as myfile:
-        return myfile.read()
+    return pathlib.Path(path).read_bytes().decode(encoding="utf-8")
 
 
 def save_file(path, content):
-    with open(path, "w", encoding="utf-8") as myfile:
-        myfile.write(content)
+    pathlib.Path(path).write_bytes(bytes(content, encoding="utf-8"))
 
 
 def setup_cmdline_parser():
