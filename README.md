@@ -1,6 +1,6 @@
 # replace
 
-Generic file search & replace tool, written in Python 3.
+Generic file search & replace tool, written in Python.
 
 ## Options
 
