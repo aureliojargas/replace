@@ -1,9 +1,21 @@
+import io
 import pathlib
 import tempfile
 
 import pytest
 
 import replace
+
+
+def test_read_from_stdin(monkeypatch):
+    """
+    Using '-' as the filename, we should read the input text from STDIN.
+    """
+    path = pathlib.Path("-")
+    text = "foo\nbar\n"
+
+    monkeypatch.setattr("sys.stdin", io.StringIO(text))
+    assert replace.read_file(path) == text
 
 
 @pytest.mark.parametrize(
