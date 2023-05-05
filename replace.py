@@ -37,7 +37,8 @@ def save_file(path, content):
 
 def setup_cmdline_parser():
     parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     # from
@@ -50,13 +51,19 @@ def setup_cmdline_parser():
         help="specify the search text or regex",
     )
     group.add_argument(
-        "-F", "--from-file", metavar="FILE", help="read the search text from this file"
+        "-F",
+        "--from-file",
+        metavar="FILE",
+        help="read the search text from this file",
     )
 
     # to
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
-        "-t", "--to", metavar="TEXT", help="specify the replacement text"
+        "-t",
+        "--to",
+        metavar="TEXT",
+        help="specify the replacement text",
     )
     group.add_argument(
         "-T",
@@ -73,14 +80,25 @@ def setup_cmdline_parser():
         help="use regex matching instead of string matching",
     )
     parser.add_argument(
-        "-i", "--in-place", action="store_true", help="edit files in-place"
+        "-i",
+        "--in-place",
+        action="store_true",
+        help="edit files in-place",
     )
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="turn on verbose mode"
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="turn on verbose mode",
     )
 
     # files
-    parser.add_argument("files", metavar="FILE", nargs="+", help="input files")
+    parser.add_argument(
+        "files",
+        metavar="FILE",
+        nargs="+",
+        help="input files",
+    )
     return parser
 
 
