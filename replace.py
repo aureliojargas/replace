@@ -26,7 +26,7 @@ def read_file(path):
     if path == "-":
         return sys.stdin.read()
     # The newline argument preserves the original line break (see issue #2)
-    with open(path, "r", newline="", encoding="utf-8") as myfile:
+    with open(path, newline="", encoding="utf-8") as myfile:
         return myfile.read()
 
 
