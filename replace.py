@@ -25,13 +25,13 @@ import sys
 
 # read/write files using bytes to avoid line break issues
 def read_file(path):
-    if path == "-":
+    if str(path) == "-":
         return sys.stdin.read()
-    return pathlib.Path(path).read_bytes().decode(encoding="utf-8")
+    return path.read_bytes().decode(encoding="utf-8")
 
 
 def save_file(path, content):
-    pathlib.Path(path).write_bytes(bytes(content, encoding="utf-8"))
+    path.write_bytes(bytes(content, encoding="utf-8"))
 
 
 def setup_cmdline_parser():
@@ -53,6 +53,7 @@ def setup_cmdline_parser():
         "-F",
         "--from-file",
         metavar="FILE",
+        type=pathlib.Path,
         help="read the search text from this file",
     )
 
@@ -68,6 +69,7 @@ def setup_cmdline_parser():
         "-T",
         "--to-file",
         metavar="FILE",
+        type=pathlib.Path,
         help="read the replacement text from this file",
     )
 
@@ -96,6 +98,7 @@ def setup_cmdline_parser():
         "files",
         metavar="FILE",
         nargs="+",
+        type=pathlib.Path,
         help="input files",
     )
     return parser

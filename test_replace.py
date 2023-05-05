@@ -32,9 +32,9 @@ def test_keep_original_line_breaks(text):
     No matter how weird the original file is, we should never "normalize" the line
     breaks or loose data when reading or writing it. See also issue #2.
     """
-    _, path = tempfile.mkstemp()
+    path = pathlib.Path(tempfile.mkstemp()[1])
 
     replace.save_file(path, text)
     assert replace.read_file(path) == text
 
-    pathlib.Path(path).unlink()
+    path.unlink()
