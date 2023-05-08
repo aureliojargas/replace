@@ -19,6 +19,27 @@ def test_read_from_stdin(monkeypatch):
 
 
 @pytest.mark.parametrize(
+    ("text", "from_", "to_", "use_regex", "expected"),
+    [
+        # from_ not found
+        ("foobar", "404", "new", False, "foobar"),
+        ("foobar", "404", "new", True, "foobar"),
+        # happy path
+        ("foobar", "foo", "new", False, "newbar"),
+        ("foobar", "fo+", "new", True, "newbar"),
+        # to_ is empty
+        ("foobar", "foo", "", False, "bar"),
+        ("foobar", "fo+", "", True, "bar"),
+        # the replace is always global
+        ("foobar", "o", ".", False, "f..bar"),
+        ("foobar", "o", ".", True, "f..bar"),
+    ],
+)
+def test_replace(text, from_, to_, use_regex, expected):
+    assert replace.replace(from_, to_, text, use_regex) == expected
+
+
+@pytest.mark.parametrize(
     "text",
     [
         # No line break at EOF

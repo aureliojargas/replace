@@ -122,6 +122,12 @@ def validate_config(config):
         sys.exit("Error: No replace pattern (use --to or --to-file)")
 
 
+def replace(from_, to_, text, use_regex):
+    if use_regex:
+        return re.sub(from_, to_, text)
+    return text.replace(from_, to_)
+
+
 def main(args=None):
     parser = setup_cmdline_parser()
     config = parser.parse_args(args)
@@ -135,12 +141,7 @@ def main(args=None):
             print("----", input_file)
 
         original = read_file(input_file)
-
-        # do the replace
-        if config.regex:
-            modified = re.sub(from_, to_, original)
-        else:
-            modified = original.replace(from_, to_)
+        modified = replace(from_, to_, original, config.regex)
 
         # save or show results
         if config.in_place:
