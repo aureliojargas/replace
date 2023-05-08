@@ -5,7 +5,6 @@ PYTHON_FILES = replace.py test_replace.py
 check: lint test
 
 fmt:
-	ruff --fix --select I $(PYTHON_FILES)
 	black $(PYTHON_FILES)
 
 lint:
