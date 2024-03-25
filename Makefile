@@ -5,11 +5,11 @@ PYTHON_FILES = replace.py test_replace.py
 check: lint test
 
 fmt:
-	black $(PYTHON_FILES)
+	ruff format $(PYTHON_FILES)
 
 lint:
 	ruff check $(PYTHON_FILES)
-	black --check --diff --quiet $(PYTHON_FILES)
+	ruff format --check --diff $(PYTHON_FILES)
 
 test: clitest
 	pytest

@@ -1,3 +1,2 @@
-black
 pytest
 ruff
