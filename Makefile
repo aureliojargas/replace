@@ -8,7 +8,7 @@ fmt:
 	black $(PYTHON_FILES)
 
 lint:
-	ruff $(PYTHON_FILES)
+	ruff check $(PYTHON_FILES)
 	black --check --diff --quiet $(PYTHON_FILES)
 
 test: clitest
