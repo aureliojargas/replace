@@ -3,6 +3,9 @@ target-version = "py37"
 fix = true
 show-fixes = true
 
+[tool.ruff.format]
+quote-style = "single"
+
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
